@@ -45,7 +45,64 @@ github(gitlab, bitbucket 등)은 git 사용을 위한 원격 저장소 호스트
 
 # git의 clone/add/commit/push/pull/branch/stash 명령은 무엇이며 어떨 때 이용하나요? 그리고 어떻게 사용하나요?
 
+## clone
+
+- git clone {url}
+- 기존 소스코드 다운로드 / 복제. github repo 먼저 만들고 로컬에서 작업 시작할 때 빈 repo를 클론하기도.
+- clone 했을 때 내부의 모든 파일은 tracked(git의 관리대상) 파일이다
+
+## add
+
+- git add (파일명) / git add . (모든 변경 사항 staging)
+- argument가 directory 경로이면 서브 디렉토리 모두 포함
+- stage에 파일 변경 사항을 올림 (add되지 않은 파일은 unstaged 상태임)
+- staged는 commit으로 저장소에 기록할 파일들의 상태
+
+## commit
+
+- git commit -m "commit message"
+- 프로젝트의 스냅샷을 기록한다. 이후에 스냅샷끼리 비교하거나 예전 스냅샷 상태로도 되돌릴 수 있다
+- -a 옵션을 추가하면 add 명령어를 생략(tracked 파일을 자동으로 staging)하고 바로 커밋할 수 있다
+- --amend 옵션으로 살짝 빠뜨리거나 변경하거나 커밋 메시지 잘못 적었을 때 완료한 커밋 수정할 수 있다
+
+## push
+
+- git push {원격저장소 주소} / git push {원격저장소명} {브랜치명}으로 주로 사용
+- (git remote add origin 등으로 연결되어 있는) 원격 저장소에 변경사항을 update한다
+- 머지하지 않고 변경사항만 가져올 때는 git fetch 이용
+
+## pull
+
+- git pull {원격저장소명} {브랜치명}
+- 원격 저장소의 변경 사항을 가져오고 머지한다
+
+## branch
+
+- git branch {브랜치명}
+- 새로운 브랜치를 만드는 명령어. 브랜치를 옮기지는 않는다
+- git checkout {브랜치명} 헤드가 체크아웃한 브랜치를 가리킨다
+- git checkout -b {브랜치명} 브랜치를 새로 생성하며 체크아웃한다
+- 브랜치를 이동하면 워킹 디렉토리의 파일이 가장 마지막으로 했던 작업 내용으로 변경된다
+- commit이나 stash 등으로 워킹 디렉토리를 정리하고 브랜치를 이동해야 한다
+- git branch -d {브랜치명} 브랜치를 삭제한다
+
+## stash
+
+- git stash
+- 로컬에서 변경한 내용을 쉽게 버릴 수는 없는데 당장 이전 커밋 상태로 되돌려야 하는 상황에서 사용한다
+
+## rm
+
+- git rm (파일명, 폴더명)
+- staging area에서 파일을 삭제하고 워킹 디렉토리 실제 파일도 삭제한다
+- git rm 하지 않고 파일을 삭제하면 unstaged 상태가 된다
+- git rm --cached는 워킹 디렉토리 파일은 지우지 않고 남겨둔다. (gitignore 깜빡하고 노드 모듈 add했을 때 사용...)
+
 # git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
+
+## Head
+
+지금 작업하는 로컬 브랜치를 가리키는 포인터
 
 # 리모트 git 저장소에 원하지 않는 파일이 올라갔을 때 이를 되돌리려면 어떻게 해야 할까요?
 
